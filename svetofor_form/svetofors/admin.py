@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from svetofors.models import Svetofor
+
+
+class SvetoforsInline(admin.TabularInline):
+    model = Svetofor
+
+admin.site.register(Svetofor)
