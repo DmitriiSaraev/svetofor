@@ -1,16 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from svetofors.forms import SetupPhaseSvetofor
+from svetofors.forms import SetupPhaseSvetofor, SetupPhaseSvetoforModel
+from svetofors.models import Svetofor
 
 
 def index(request):
-    if request.method == 'POST':
-        form = SetupPhaseSvetofor(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-    else:
-        form = SetupPhaseSvetofor()
+    svetofors = Svetofor.objects.all()
 
-    return render(request, 'index.html', context={'form': form})
+    form = SetupPhaseSvetoforModel()
 
+    return render(request, 'index.html', context={'svetofors': svetofors})
 
+def up_svetofor(request, svetofor_id):
+    """Добавление товара в корзину"""
+
+    svetofor = Svetofor.objects.get(pk=svetofor_id)
+    print(svetofor_id)
+    return redirect("svetofors:index", )
